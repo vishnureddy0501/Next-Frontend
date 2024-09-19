@@ -1,0 +1,52 @@
+1. Parallel Routes in Next.js:
+
+allows you to define and render multiple routes within a single page in parallel. It allows different parts of the page (or different layouts) to load and render independently, improving the overall page load performance and user experience.
+Key Points:
+    Independent Sections: Different parts of a page can load independently without waiting for each other.
+    Multiple Routes: Multiple routes or sections can be rendered in parallel within the same page, each potentially coming from different URLs or file structures.
+    Flexibility: Parallel routes give developers more control over how different sections of a page are fetched and displayed. This is especially useful for multi-sectioned pages like dashboards, blogs with comments, or layouts where some parts are dynamic.
+
+how to declare parallel routes:
+-------------------------------
+app/
+ └── page.tsx       # Main page component
+ └── @sidebar       # Parallel route 1: Sidebar component
+ └── @comments      # Parallel route 2: Comments component
+
+// app/page.js
+export default function Page() {
+  return (
+    <div>
+      <Sidebar /> {/* Renders parallel route */}
+      <Comments /> {/* Renders parallel route */}
+      {/* Main content */}
+    </div>
+  );
+}
+
+Each part can load its own content in parallel, reducing delays caused by slower loading sections.
+
+2. Suspense in React/Next.js:
+
+Suspense is a React feature (also supported in Next.js) that allows you to delay rendering of part of your component tree until some data is available. It is commonly used for lazy-loading components, fetching data, or delaying specific parts of the UI.
+
+import { Suspense, lazy } from 'react';
+
+const Comments = lazy(() => import('./Comments'));
+const Reviews = lazy(() => import('./Reviews'));
+
+export default function Blog() {
+  return (
+    <div>
+      <Suspense fallback={<p>Loading Comments...</p>}>
+        <Comments />
+      </Suspense>
+      <Suspense fallback={<p>Loading Reviews...</p>}>
+        <Reviews />
+      </Suspense>
+    </div>
+  );
+}
+
+Suspense shows the fallback (Loading...) while waiting for the Comments or Reviews components to load.
+Purpose: Primarily used for lazy loading and non-blocking data fetching.

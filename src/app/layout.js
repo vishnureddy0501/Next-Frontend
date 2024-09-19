@@ -1,4 +1,5 @@
 import "./globals.css";
+import { StoreProvider } from "./Provider";
 
 export const metadata = {
   title: "Create Next App",
@@ -9,14 +10,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {/* this header is kept by me. we can customize header like this */}
-        <header className=" bg-black text-white p-4">
-          Header Component
-        </header>
-          {children}
+        <StoreProvider>
+          {/* this header is kept by me. we can customize header like this */}
+          <header className=" bg-black text-white p-4">
+            Header Component
+          </header>
+            {children}
 
-          {/* this footer is kept by me. we can customize footer like this */}
-        <footer className=" bg-black text-white p-4">Footer Component</footer>
+            {/* this footer is kept by me. we can customize footer like this */}
+          <footer className=" bg-black text-white p-4">Footer Component</footer>
+        </StoreProvider>
       </body>
     </html>
   );

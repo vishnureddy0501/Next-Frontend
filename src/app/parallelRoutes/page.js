@@ -1,19 +1,7 @@
-import Analytics from "./@analytics/page";
-
-
-export default function ParallelRoutes({ children, analytics}) {
+export default function ParallelRoutes() {
     return (
         <div>
-            <div>
-                { children }
-            </div>
-            <div>
-                {analytics}
-            </div>
-            <Analytics />
-            <div>
-                Learning parallel routes
-            </div>
+            Learning parallel routes
         </div>
     );
   }

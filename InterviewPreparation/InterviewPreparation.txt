@@ -1,3 +1,7 @@
+Things to learn:
+-----------------
+parallel routes, intercepting routes. (optional concepts)
+
 File colocation
 ----------------
 keeping related files together (components, styles, tests, etc.).
@@ -163,7 +167,71 @@ legacy approach for handling multiple sections in a page:
 
 Handling multiple sections using parallel routes:
 -------------------------------------------------
-no need of this concepts. you can managewith normal component call.
-
 declare folders starting with "@"
  eg: @notifications, @analytics, @salesEngagement
+
+using parallel routes we can have multiple sections.
+
+ Client components vs server components in next js:
+ --------------------------------------------------
+ components are server components by default
+ for client components we have to use "use client" directive at top
+ server components are rendered on the server.
+ client components are once rendered on the server and then on the client.
+ 
+ server components:
+ ------------------
+ fetching data
+ directly accessing backend resources
+ protecting sensitive information (access tokens, api keys)
+ keeping large dependencies on server side, which helps in reducing client side javascript.
+ client components:
+ ------------------
+ adding interactivity
+ handling event listeners (onclick, onchange...)
+ managing state and life cycle effects.
+ using browser apis, custom hooks, react class components
+
+ server only package:
+ -------------------
+ provide a build error if developers accidentally import any server code to client component.
+
+ client only package: (similar to server-only)
+ --------------------
+  provide a build error if developers accidentally import any client code to server component.
+
+context-providers
+------------------
+create separate component from context-provider with "use client";
+now wrap the layout.js around the created context-provider. (search for file provider.js)
+provider.js -> client component
+layout.js -> server component
+
+even through provider.js is client component, we can have server components down the tree.
+layout.js childs can be server components / client components.
+now the store created using context-providers is applicable for all components.
+
+
+client component  placement:
+---------------------------
+if a component is client component then all the child components of it are client components.
+
+it is better to have the client components at leaf node.
+
+
+calling components:
+--------------------
+call client component form another client component (fine)
+call client component from server component (fine)
+call server component from server component (fine)
+call server component from client component (not fine):
+-------------------------------------------------------
+you should not do this. because it will require one more call to the server.
+
+if you do this, then the server component is converted to client component.
+
+how to solve this problem?
+--------------------------
+pass the server component to the client component as children prop and call it.
+
+this way we can call server components from client component.
