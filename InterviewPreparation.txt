@@ -1,0 +1,169 @@
+File colocation
+----------------
+keeping related files together (components, styles, tests, etc.).
+
+private folders:
+----------------
+directories not meant to be exposed as public routes.
+
+private folders starts with _
+eg: _lib, _firstblog
+
+explain route groups:
+---------------------
+grouping related routes together.
+
+lets say you have login, signup, logout routes.
+you have wrapped these in auth folder.
+
+for calling routes: auth/login, auth/signup, auth/logout
+
+by using route groups:
+----------------------
+change auth folder name to (auth) // wrappped in small brackets.
+now for calling routes: /login, /signup, /logout works. (this way the code looks cleaner)
+
+Routing metadata:
+-----------------
+rules: 
+
+layout.js, page.js can export metadata
+if defined in layout then it applies to all pages in that layout
+if defined in page then it applies to only that page.
+
+metadata is read in order from root level to the final level in the final page level.
+
+when metadata in multiple pages for the same route, they get combined, but page metadata will replace layout metadata if they have the same properties.
+
+routing metadata allows you to define dynamic data about your pages, like SEO information (title, description), Open Graph tags, or even configuration values for each route. This is done by exporting a special metadata object in your page or layout files.
+
+
+examples:
+--------------
+You can define routing metadata by exporting a metadata object or a generateMetadata function in the page or layout component. Here's how it works:
+
+1. Static Metadata Export This is the simplest way to add metadata to a page.
+// app/blog/page.js
+
+export const metadata = {
+  title: 'Blog - My Next.js Site',
+  description: 'This is the blog page of my Next.js site.',
+};
+
+export default function BlogPage() {
+  return (
+    <div>
+      <h1>Blog Page</h1>
+      <p>Welcome to the blog section!</p>
+    </div>
+  );
+}
+
+    title: This defines the <title> tag in the HTML <head>.
+    description: This will generate a <meta name="description" content="..."> tag.
+
+Dynamic Metadata with generateMetadata Sometimes, you may want to generate metadata dynamically based on the content or route parameters. You can use the generateMetadata function.
+
+Example:
+
+js
+
+// app/blog/[slug]/page.js
+
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+  const post = await getPostData(slug); // Fetch post data dynamically
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+  };
+}
+
+export default function BlogPostPage({ params }) {
+  return (
+    <div>
+      <h1>{params.slug}</h1>
+      <p>Blog post content goes here...</p>
+    </div>
+  );
+}
+
+
+Link component navigation:
+-------------------------
+// pages/index.js
+import Link from 'next/link';
+
+export default function Home() {
+  return (
+    <div>
+      <h1>Home Page</h1>
+      {/* Navigation using Link component */}
+      {/* just like push after the current route*/}
+      <Link href="/about"> Go to About Page </Link>
+
+            {/* replace the current route*/}
+        <Link href="/about" replace> Go to About Page </Link>
+    </div>
+  );
+}
+
+dynamic link navigation is similar to what we do in react.
+
+Programatic Navigation:
+-----------------------
+"use client"; // if you don't use this line, getting errors.
+import { useRouter } from 'next/router';
+
+export default function Home() {
+  const router = useRouter();
+
+  const handleNavigation = () => {
+    // Navigate to another page programmatically
+    router.push('/about');   // route.replace('/about/); for replacing the current route.
+  };
+
+  return (
+    <div>
+      <h1>Home Page</h1>
+      <button onClick={handleNavigation}>
+        Go to About Page
+      </button>
+    </div>
+  );
+}
+
+Templates:
+-----------
+Templates are declared with template.js / template.tsx.
+Templates are similar to layouts in that they wraps each child layout or page.
+
+for template: if user navigates between routes that share a Template, a new instance of component is mounted. dom elements are recreated. state is not preserved. effects are re-synchronized.
+-------------
+for layout: state, instance is preserved between routes.
+-----------
+
+
+loading.js:
+----------
+create loading effects while data is loading.
+special files: page.js, layout.js, template.js, not-found.js, loading.js
+
+parallel routes:
+----------------
+
+legacy approach for handling multiple sections in a page:
+---------------------------------------------------------
+<div>
+  <notifications />
+  <analytics />
+  <salesEngagement />
+</div>
+
+Handling multiple sections using parallel routes:
+-------------------------------------------------
+no need of this concepts. you can managewith normal component call.
+
+declare folders starting with "@"
+ eg: @notifications, @analytics, @salesEngagement

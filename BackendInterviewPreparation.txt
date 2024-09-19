@@ -1,0 +1,5 @@
+Headers in route handlers:
+--------------------------
+meta data about api request / api response
+
+Request headers: these are sent by the client. this contains essential information about the request, which helps server understands and process it correctly.
