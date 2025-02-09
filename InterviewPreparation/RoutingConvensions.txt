@@ -1,0 +1,5 @@
+Routing Convensions
+---------------------
+all routes must be placed in app folder
+every route that corresponds to a route must be named page.js or page.tsx
+every folder corresponds to path segment in browser url

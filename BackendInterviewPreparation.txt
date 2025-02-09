@@ -3,3 +3,14 @@ Headers in route handlers:
 meta data about api request / api response
 
 Request headers: these are sent by the client. this contains essential information about the request, which helps server understands and process it correctly.
+
+Explain Server side caching in next js
+---------------------------------------
+next js caches the api response and stores it.
+if you make the api call again it send the data from cache.(sometimes cache data is wrong)
+
+How to opt out of caching?
+--------------------------
+in the api call itself we have to mention the following line
+
+cache: "no-store"

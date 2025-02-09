@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 const ClientComponent = ({children}) => {
     return (
         <div>

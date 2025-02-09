@@ -1,0 +1,6 @@
+Loading:
+--------
+we show this component when the route's content is loading.
+The loading state appears upon immediate navigation, giving users look and feel saying data is loading.
+
+weather data is fetching or not, it will be detected automatically.

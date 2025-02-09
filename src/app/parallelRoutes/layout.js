@@ -1,5 +1,8 @@
 "use client";
 
+ 
+// export default function ParallelRoutes({ children, analytics, notifications, salesEngagement } : { children: React.ReactNode, analytics: React.ReactNode, notifications: React.ReactNode, salesEngagement: React.ReactNode }) {
+
 export default function ParallelRoutes({ children, analytics, notifications, salesEngagement }) {
     return (
         <div>

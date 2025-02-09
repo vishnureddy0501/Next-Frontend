@@ -1,0 +1,24 @@
+Parallel Routes:
+----------------
+
+parallel routes:
+----------------
+
+legacy approach for handling multiple sections in a page:
+---------------------------------------------------------
+<div>
+  <notifications />
+  <analytics />
+  <salesEngagement />
+</div>
+
+Handling multiple sections using parallel routes:
+-------------------------------------------------
+declare folders starting with "@"
+ eg: @notifications, @analytics, @salesEngagement
+
+using parallel routes we can have multiple sections.
+
+
+Sub Navigation in Parallel Routes:
+----------------------------------
